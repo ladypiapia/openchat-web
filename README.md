@@ -26,3 +26,33 @@ openchat-web是一个基于react router v7、chakra-ui、tanstack query、ky、z
  <img src="docs/images_mobile_dark.png" alt="images_mobile_dark">
  <img src="docs/images_light.png" alt="images_light">
  <img src="docs/chat.png" alt="chat">
+
+### 部署说明
+
+1. 克隆项目
+```bash
+git clone https://github.com/akazwz/openchat-web.git
+cd openchat-web
+```
+
+2. 安装依赖
+```bash
+pnpm install
+```
+
+3. 配置环境变量
+- 将 `.env.example` 文件复制并重命名为 `.env`
+- 在 `.env` 文件中设置后端API地址：
+```
+VITE_API_URL=你的后端API地址
+```
+
+4. 运行项目
+```bash
+pnpm dev
+```
+
+5. 构建项目
+```bash
+pnpm build
+```

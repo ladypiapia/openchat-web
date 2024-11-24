@@ -1,5 +1,12 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from "react-router";
+import {
+	Links,
+	Meta,
+	Outlet,
+	Scripts,
+	ScrollRestoration,
+	useNavigation,
+} from "react-router";
 import { Provider } from "~/components/ui/provider";
 import { Toaster } from "~/components/ui/toaster";
 import { GlobalLoading } from "~/components/global-loading";
@@ -30,12 +37,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
 const queryClient = new QueryClient();
 
 export default function App() {
+	const navigation = useNavigation();
+	const isNavigating = Boolean(navigation.location);
+
 	return (
 		<QueryClientProvider client={queryClient}>
 			<Provider>
 				<Outlet />
 				<Toaster />
-				<GlobalLoading />
+				{isNavigating && <GlobalLoading />}
 			</Provider>
 		</QueryClientProvider>
 	);
