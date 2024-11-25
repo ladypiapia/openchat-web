@@ -8,6 +8,7 @@ import type {
 	UserData,
 } from "~/types";
 import { toaster } from "~/components/ui/toaster";
+import { getNavigate } from "~/utils/navigation";
 
 const BASE_API_URL = import.meta.env.VITE_API_URL as string;
 
@@ -62,7 +63,10 @@ const api = ky.create({
 								title: "登录过期",
 								description: "请重新登录",
 							});
-							location.href = "/signin";
+							const navigate = getNavigate();
+							navigate("/signin",{
+								viewTransition: true
+							});
 						} finally {
 							isRefreshing = false;
 						}
