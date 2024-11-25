@@ -6,10 +6,13 @@ import {
 	Scripts,
 	ScrollRestoration,
 	useNavigation,
+	useNavigate,
 } from "react-router";
+import { useEffect } from "react";
 import { Provider } from "~/components/ui/provider";
 import { Toaster } from "~/components/ui/toaster";
 import { GlobalLoading } from "~/components/global-loading";
+import { setNavigate } from "~/utils/navigation";
 
 export function Layout({ children }: { children: React.ReactNode }) {
 	return (
@@ -34,7 +37,12 @@ const queryClient = new QueryClient();
 
 export default function App() {
 	const navigation = useNavigation();
+	const navigate = useNavigate();
 	const isNavigating = Boolean(navigation.location);
+
+	useEffect(() => {
+		setNavigate(navigate);
+	}, [navigate]);
 
 	return (
 		<QueryClientProvider client={queryClient}>

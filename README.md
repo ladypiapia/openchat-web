@@ -56,3 +56,50 @@ pnpm dev
 ```bash
 pnpm build
 ```
+
+### Docker 部署
+
+项目提供了 Docker 和 Docker Compose 支持，可以轻松部署。默认打包为ssg 用 nginx 部署
+
+### 使用 Docker Compose 部署（推荐）
+```yaml
+# docker-compose.yml 已包含在项目中
+services:
+  web:
+    build: .
+    ports:
+      - "8080:80"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:80"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+```
+
+运行命令：
+```bash
+# 构建并启动服务
+docker-compose up -d
+
+# 查看日志
+docker-compose logs -f
+```
+
+访问 `http://localhost:8080` 即可看到应用。
+
+### 手动 Docker 构建（可选）
+```bash
+# 构建镜像
+docker build -t openchat-web .
+
+# 运行容器
+docker run -d -p 8080:80 --name openchat-web openchat-web
+```
+
+### 注意事项
+
+- 应用默认运行在 8080 端口
+- 容器内使用 nginx 作为 web 服务器（80端口）
+- 已配置健康检查确保服务稳定性
+- 如需修改配置，可以通过挂载 nginx.conf 实现
